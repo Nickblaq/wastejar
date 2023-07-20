@@ -22,3 +22,16 @@ module.exports = {
   },
   plugins: [],
 }
+
+
+
+// "pop": {
+//   '0%, 100%': {
+//     opacity: 0,
+//     transform: 'translateY(20px)',
+//   },
+//   '50%': {
+//     opacity: 1,
+//     transform:  'translateY(0)',
+//   },
+// },
