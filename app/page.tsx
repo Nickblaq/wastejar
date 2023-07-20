@@ -11,9 +11,9 @@ export default function Home() {
         <p className=' leading-loose text-xl font-normal text-left font-sans indent-2 italic'>
           The burden of waste mangament and disposal can be tedious, but worry no more.
          </p>
-        <h3 className=' leading-loose text-2xl font-normal text-left font-sans indent-2'>
+        <h3 className=' lg:text-center leading-loose text-2xl lg:text-4xl font-normal text-left font-sans indent-2'>
           
-          <strong>Waste jar</strong> takes that burden away when instantly!. 
+          <strong>Waste Jar</strong> takes that burden away when instantly!. 
          </h3>
           <Button className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#1a1a1a] rounded-lg'>Subscribe</Button>
       </div>
