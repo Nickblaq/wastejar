@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/button'
-
+import { JarForm } from './jar-form'
+import { FormMemo } from '@/components/form-memo'
 
 export default function Home() {
   return (
@@ -15,9 +16,12 @@ export default function Home() {
           
           <strong>Waste Jar</strong> takes that burden away when instantly!. 
          </h3>
-          <Button className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#1a1a1a] rounded-lg'>Subscribe</Button>
+      
+         <FormMemo />
+         {/* <Button className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#444] rounded-lg'>Subscribe</Button> */}
       </div>
      </div>
+     <JarForm />
     
     </>
   )
