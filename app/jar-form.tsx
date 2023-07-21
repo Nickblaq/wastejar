@@ -41,17 +41,17 @@ export function JarForm({ children }: Props) {
      const res =  await fetch("/api/jar", {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
 
       setLoading(false)
      
       console.log(res)
       if (!res.ok) {
-        return toast({
-          title: "Something went wrong.",
-          description: "Your post was not saved. Please try again.",
-          variant: "destructive",
-        })
+        setError((await res.json()).message);
+        return;
       }
 
       router.refresh()

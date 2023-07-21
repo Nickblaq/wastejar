@@ -1,15 +1,15 @@
-import 'server-only'
-import { prisma } from './prisma';
+
+import { db } from './prisma';
 
 
 interface dbProps {
     name: string;
-    phone: string;
+    phone: string
 }
-export async function dbJar ({ name, phone }: dbProps) {
+export async function dbJar ({ name, phone }: dbProps)  {
         console.log('db data', name, phone)
     try {
-        const user = await prisma.user.upsert({
+        const user = await db.user.upsert({
             where: { phone },
             update: {},
             create: {
@@ -18,9 +18,9 @@ export async function dbJar ({ name, phone }: dbProps) {
             },
         });
         console.log(user);
-        return
+        return user  as dbProps; // Type assertion to dbProps
     } catch (error) {
         console.log(error)
-        return error
+        throw error;
     }
 }

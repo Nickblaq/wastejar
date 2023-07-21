@@ -1,6 +1,7 @@
 
 import { NextResponse } from "next/server";
-import { dbJar } from "@/lib/ops-db";
+// import { dbJar } from "@/lib/ops-db";
+import { db } from "@/lib/prisma";
 
 export  async function POST(req: Request) {
     try {
@@ -8,19 +9,21 @@ export  async function POST(req: Request) {
             name: string;
             phone: string;
         }
-        const user = await dbJar({ name, phone });
-        console.log('User db operation done', user);
+        const user = await db.user.upsert({
+            where: {
+                phone,
+            },
+            update: {},
+            create: {
+                name,
+                phone,
+            }
+        })
+        console.log('User api operation done', user);
         return NextResponse.json({
-            message: "Success",
-            body: user
+            user: { name: user.name, phone: user.phone }
         })
     } catch (error: any) {
-        return new NextResponse(
-            JSON.stringify({
-              status: "error",
-              message: error.message,
-            }),
-            { status: 500 }
-          );
+        return new NextResponse(JSON.stringify(null),{ status: 500 });
     }
 }
