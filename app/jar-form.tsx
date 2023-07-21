@@ -33,11 +33,14 @@ export function JarForm({ children }: Props) {
     if (loading) return
     setLoading(true)
     try {
-    //  const res =  await fetch("/api/jar", {
-    //     method: "POST",
-    //     body: JSON.stringify(formValues),
-    //   })
-    const res = formValues
+     const res =  await fetch("/api/jar", {
+        method: "POST",
+        body: JSON.stringify(formValues),
+      })
+    // const res = {
+    //   name: formValues.name,
+    //   phone: formValues.phone.toString().replace(/\s/g, ""),
+    // }
 
       console.log('res message', res);
     } catch (error) {
@@ -113,7 +116,7 @@ export function JarForm({ children }: Props) {
                     <Input
                       id="phone"
                       name="phone"
-                      placeholder="+234 123 456 7890"
+                      placeholder="0123 456 7890"
                       type="text"
                       value={formValues.phone}
                       onChange={handleChange}
