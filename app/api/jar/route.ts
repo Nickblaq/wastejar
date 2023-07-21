@@ -12,6 +12,7 @@ export  async function POST(req: Request) {
         console.log('User db operation done', user);
         return NextResponse.json({
             message: "Success",
+            body: user
         })
     } catch (error: any) {
         return new NextResponse(

@@ -2,9 +2,9 @@
 import { Button } from '@/components/button'
 import { JarForm } from './jar-form'
 import { FormMemo } from '@/components/form-memo'
-
+import { main } from '@/lib/seed'
 export default async function Home() {
-
+    // await main()
   return (
     <>
       <div className='h-full w-full flex-auto text-center'>
@@ -18,7 +18,7 @@ export default async function Home() {
           <strong>Waste Jar</strong> takes that burden away when instantly!. 
          </h3>
       
-         <FormMemo />
+       
          {/* <Button className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#444] rounded-lg'>Subscribe</Button> */}
       </div>
      </div>

@@ -21,6 +21,7 @@ export function JarForm({ children }: Props) {
     phone: "",
   })
   const [error, setError] = useState("")
+  const [sucess, setSucess] = useState(false)
   let [isOpen, setIsOpen] = useState(true)
 
   function closeModal() {
@@ -42,7 +43,7 @@ export function JarForm({ children }: Props) {
       })
 
       setLoading(false)
-      setIsOpen(false)
+     
       console.log(res)
       if (!res.ok) {
         return toast({
@@ -54,9 +55,7 @@ export function JarForm({ children }: Props) {
 
       router.refresh()
 
-      return toast({
-        description: "Your post has been saved.",
-      })
+      return setSucess(true)
 
   }
 
@@ -105,13 +104,59 @@ export function JarForm({ children }: Props) {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#333] p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-xl text-center font-medium leading-6 my-6"
+                    className="text-2xl text-center font-bold leading-6 my-6"
                   >
                     WasteJar Form
                   </Dialog.Title>
+                  { !loading && sucess && (
+                    <>
+                    <div className="mt-2">
+                    <p className=" text-base text-gray-400">
+                      Your details has been successfully submitted. We&apos;ll sent
+                      you a message on whatsApp/text.
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      Got it, thanks!
+                    </button>
+                  </div>
+                  </>
+                  )}
+
+
+                  { !loading && !sucess && error && (
+                    <>
+                    <div className="mt-2">
+                    <p className=" text-base text-gray-400">
+                      Something happened. Try again in few minutes.
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      Got it, thanks!
+                    </button>
+                  </div>
+                  </>
+                  )}
+
+
+                  {  !sucess && (
+                  <>
                   <div className="mt-2">
                     <Label htmlFor="name">Name</Label>
                     <Input
+                    disabled={loading}
                       id="name"
                       type="text"
                       name="name"
@@ -124,6 +169,7 @@ export function JarForm({ children }: Props) {
                   <div className="mt-2">
                     <Label htmlFor="name">Phone</Label>
                     <Input
+                      disabled={loading}
                       id="phone"
                       name="phone"
                       placeholder="0123 456 7890"
@@ -139,9 +185,11 @@ export function JarForm({ children }: Props) {
                       type="button"
                       onClick={onSubmit}
                     >
-                      Submit
+                    {loading? 'Loading...' : 'Submit'}
                     </Button>
                   </div>
+                  </>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

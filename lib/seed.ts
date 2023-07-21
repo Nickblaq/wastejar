@@ -4,7 +4,14 @@ const prisma = new PrismaClient();
 
 export async function main () {
 
+   
+
     try {
+        const getAll = await prisma.user.findMany();
+        if (getAll.length > 0) {
+            await prisma.user.deleteMany();
+        }
+        
         const user = await prisma.user.upsert({
             where: { phone: "1234567890" },
             update: {},
