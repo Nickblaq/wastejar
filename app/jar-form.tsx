@@ -35,7 +35,7 @@ export function JarForm({ children }: Props) {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (loading) return
-    if (!formValues.name || formValues.phone) return
+    if (!formValues.name || !formValues.phone) return
     setLoading(true)
       const data = { name: formValues.name, phone: formValues.phone.replace(/\s/g, "") }
      const res =  await fetch("/api/jar", {
@@ -48,14 +48,14 @@ export function JarForm({ children }: Props) {
 
       setLoading(false)
      
-      console.log(res)
+      console.log('this is res', res)
       if (!res.ok) {
         setError((await res.json()).message);
         return;
       }
 
       router.refresh()
-
+      console.log(res)
       return setSucess(true)
 
   }
@@ -75,7 +75,7 @@ export function JarForm({ children }: Props) {
         >
           Open dialog
         </button> */}
-         <Button onClick={openModal} className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#444] rounded-lg'>Subscribe</Button>
+         <Button onClick={openModal} className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#444] rounded-lg'>500 naira / 2 bags</Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -105,16 +105,28 @@ export function JarForm({ children }: Props) {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#333] p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-2xl text-center font-bold leading-6 my-6"
+                    className=" text-center my-6"
                   >
-                    WasteJar Form
+                    {/* <div> */}
+                    <h2 className="text-2xl  font-bold leading-6 mb-3">WasteJar</h2>
+                    {/* </div> */}
                   </Dialog.Title>
                   { !loading && sucess && (
                     <>
                     <div className="mt-2">
+                      <ul className="list-none ">
+                        <li>
+                          <strong>Name:</strong> {formValues.name}
+                        </li>
+                        <li>
+                          <strong>Phone:</strong> {formValues.phone}
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="mt-2">
                     <p className=" text-base text-gray-400">
                       Your details has been successfully submitted. We&apos;ll sent
-                      you a message on whatsApp/text.
+                      you a message on whatsApp.
                     </p>
                   </div>
 
@@ -135,7 +147,7 @@ export function JarForm({ children }: Props) {
                     <>
                     <div className="mt-2">
                     <p className=" text-base text-rose-400">
-                      Something happened. Fill all details or try again in few minutes.
+                      Something happened. Fill correct details or try again in few minutes.
                     </p>
                   </div>
 
@@ -161,25 +173,39 @@ export function JarForm({ children }: Props) {
                       id="name"
                       type="text"
                       name="name"
-                      placeholder="John Doe"
+                      placeholder="John"
                       value={formValues.name}
                       onChange={handleChange}
                       className="mt-1"
                     />
                   </div>
                   <div className="mt-2">
-                    <Label htmlFor="name">Phone</Label>
+                    <Label htmlFor="name">Wahtsapp no.</Label>
                     <Input
                       disabled={loading}
                       id="phone"
                       name="phone"
-                      placeholder="0123 456 7890"
+                      placeholder="08034567890"
                       type="text"
                       value={formValues.phone}
                       onChange={handleChange}
                       className="mt-1"
                     />
                   </div>
+
+                  <div className="mt-6 flex items-center gap-2">
+                    <p className="">Rate:</p>
+                    <p className=" text-base text-[#888]">
+                      500/2 bags
+                    </p>
+                  </div>
+
+                  <div className="mt-2">
+                    <p className=" text-base text-[#888]">
+                      Please make payment before submitting. Don&apos;t spam me.
+                    </p>
+                  </div>
+                
 
                   <div className="mt-4">
                     <Button

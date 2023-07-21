@@ -21,7 +21,7 @@ export  async function POST(req: Request) {
         })
         console.log('User api operation done', user);
         return NextResponse.json({
-            user: { name: user.name, phone: user.phone }
+            body: user
         })
     } catch (error: any) {
         return new NextResponse(JSON.stringify(null),{ status: 500 });

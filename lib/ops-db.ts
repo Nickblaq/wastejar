@@ -8,19 +8,11 @@ interface dbProps {
 }
 export async function dbJar ({ name, phone }: dbProps)  {
         console.log('db data', name, phone)
-    try {
-        const user = await db.user.upsert({
-            where: { phone },
-            update: {},
-            create: {
-                name,
+        const user = await db.user.findUnique({
+            where: {
                 phone,
             },
-        });
-        console.log(user);
+        })
+        if (!user) return null   
         return user  as dbProps; // Type assertion to dbProps
-    } catch (error) {
-        console.log(error)
-        throw error;
-    }
 }

@@ -10,27 +10,15 @@ export function Footer() {
           
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built with ❤ by{" "}
-            <a
+            {/* <a
               href='nickblaq.xyz'
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
-            >
+            > */}
               nickblaq
-            </a>
+            {/* </a> */}
             . 
-          </p>
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-          IG at {" "}
-            <a
-              href='instagram.com/nickblaq'
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-             Nickblaq
-            </a>
-            .
           </p>
         </div>
       </div>
