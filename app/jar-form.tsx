@@ -22,7 +22,7 @@ export function JarForm({ children }: Props) {
   })
   const [error, setError] = useState("")
   const [sucess, setSucess] = useState(false)
-  let [isOpen, setIsOpen] = useState(true)
+  let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
     setIsOpen(false)
