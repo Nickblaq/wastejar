@@ -2,16 +2,19 @@
 
 import { ChangeEvent, useState, Fragment } from "react"
 import { Dialog, Transition } from '@headlessui/react'
-import { Button } from "@/components/button"
+import { useRouter } from "next/navigation"
 
+
+import { Button } from "@/components/button"
 import { Input } from "@/components/input"
 import { Label } from "@/components/label"
-import React from "react"
+import { toast } from "@/components/use-toast"
 
 interface Props {
     children?: React.ReactNode
 }
 export function JarForm({ children }: Props) {
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [formValues, setFormValues] = useState({
     name: "",
@@ -32,22 +35,29 @@ export function JarForm({ children }: Props) {
     e.preventDefault()
     if (loading) return
     setLoading(true)
-    try {
+      const data = { name: formValues.name, phone: formValues.phone.replace(/\s/g, "") }
      const res =  await fetch("/api/jar", {
         method: "POST",
-        body: JSON.stringify(formValues),
+        body: JSON.stringify(data),
       })
-    // const res = {
-    //   name: formValues.name,
-    //   phone: formValues.phone.toString().replace(/\s/g, ""),
-    // }
 
-      console.log('res message', res);
-    } catch (error) {
-      setError("Error")
-    } finally {
       setLoading(false)
-    }
+      setIsOpen(false)
+      console.log(res)
+      if (!res.ok) {
+        return toast({
+          title: "Something went wrong.",
+          description: "Your post was not saved. Please try again.",
+          variant: "destructive",
+        })
+      }
+
+      router.refresh()
+
+      return toast({
+        description: "Your post has been saved.",
+      })
+
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

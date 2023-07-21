@@ -3,7 +3,8 @@ import { Button } from '@/components/button'
 import { JarForm } from './jar-form'
 import { FormMemo } from '@/components/form-memo'
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <>
       <div className='h-full w-full flex-auto text-center'>
