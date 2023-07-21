@@ -28,7 +28,7 @@ export function JarForm({ children }: Props) {
     setIsOpen(true)
   }
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (loading) return
     setLoading(true)
@@ -48,19 +48,21 @@ export function JarForm({ children }: Props) {
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    console.log(name, value)
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
   return (
     <>
-     <div className="fixed inset-0 flex items-center justify-center">
-        <button
+   
+        {/* <button
           type="button"
           onClick={openModal}
           className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
           Open dialog
-        </button>
-      </div>
+        </button> */}
+         <Button onClick={openModal} className='inline-flex items-center font-mono w-full py-8 text-2xl max-w-md mx-auto font-semibold bg-[#444] rounded-lg'>Subscribe</Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -73,7 +75,7 @@ export function JarForm({ children }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-[#333] bg-opacity-25" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -87,12 +89,12 @@ export function JarForm({ children }: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#333] p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-xl text-center font-medium leading-6 my-6"
                   >
-                    Detail here
+                    WasteJar Form
                   </Dialog.Title>
                   <div className="mt-2">
                     <Label htmlFor="name">Name</Label>
@@ -100,16 +102,18 @@ export function JarForm({ children }: Props) {
                       id="name"
                       type="text"
                       name="name"
+                      placeholder="John Doe"
                       value={formValues.name}
                       onChange={handleChange}
                       className="mt-1"
                     />
                   </div>
                   <div className="mt-2">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">Phone</Label>
                     <Input
                       id="phone"
                       name="phone"
+                      placeholder="+234 123 456 7890"
                       type="text"
                       value={formValues.phone}
                       onChange={handleChange}
@@ -118,13 +122,12 @@ export function JarForm({ children }: Props) {
                   </div>
 
                   <div className="mt-4">
-                    <button
+                    <Button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={onSubmit}
                     >
-                      Got it, thanks!
-                    </button>
+                      Submit
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
