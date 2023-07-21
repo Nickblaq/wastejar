@@ -35,6 +35,7 @@ export function JarForm({ children }: Props) {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     if (loading) return
+    if (!formValues.name || formValues.phone) return
     setLoading(true)
       const data = { name: formValues.name, phone: formValues.phone.replace(/\s/g, "") }
      const res =  await fetch("/api/jar", {
@@ -133,8 +134,8 @@ export function JarForm({ children }: Props) {
                   { !loading && !sucess && error && (
                     <>
                     <div className="mt-2">
-                    <p className=" text-base text-gray-400">
-                      Something happened. Try again in few minutes.
+                    <p className=" text-base text-rose-400">
+                      Something happened. Fill all details or try again in few minutes.
                     </p>
                   </div>
 
